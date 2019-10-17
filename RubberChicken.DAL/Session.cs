@@ -4,14 +4,14 @@ namespace Wdh.RubberChicken.DAL
 {
     internal sealed class Session : ISession
     {
-        private object data;
+        private string data;
 
-        public object GetData()
+        public string GetData()
         {
             return data;
         }
 
-        public void SetData(object data)
+        public void SetData(string data)
         {
             this.data = data;
         }

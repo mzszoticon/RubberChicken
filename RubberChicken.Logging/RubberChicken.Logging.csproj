@@ -2,15 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <RootNamespace>Wdh.RubberChicken.DAL</RootNamespace>
+    <RootNamespace>Wdh.RubberChicken.Logging</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Ninject" Version="3.3.4" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\RubberChicken.Logging\RubberChicken.Logging.csproj" />
   </ItemGroup>
 
 </Project>

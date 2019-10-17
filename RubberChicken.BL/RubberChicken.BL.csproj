@@ -5,4 +5,9 @@
     <RootNamespace>Wdh.RubberChicken.BL</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RubberChicken.DAL\RubberChicken.DAL.csproj" />
+    <ProjectReference Include="..\RubberChicken.Logging\RubberChicken.Logging.csproj" />
+  </ItemGroup>
+
 </Project>

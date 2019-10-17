@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RubberChicken.DAL", "Rubber
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RubberChicken.Tests", "RubberChicken.Tests\RubberChicken.Tests.csproj", "{49F5FB84-7ADB-4C1D-B421-B3BC50B05550}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RubberChicken.Logging", "RubberChicken.Logging\RubberChicken.Logging.csproj", "{D6EB4CC8-48EE-47C5-8869-D98E0CD3643E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{49F5FB84-7ADB-4C1D-B421-B3BC50B05550}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49F5FB84-7ADB-4C1D-B421-B3BC50B05550}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49F5FB84-7ADB-4C1D-B421-B3BC50B05550}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6EB4CC8-48EE-47C5-8869-D98E0CD3643E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6EB4CC8-48EE-47C5-8869-D98E0CD3643E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6EB4CC8-48EE-47C5-8869-D98E0CD3643E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6EB4CC8-48EE-47C5-8869-D98E0CD3643E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

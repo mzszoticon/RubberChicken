@@ -5,4 +5,13 @@
     <RootNamespace>Wdh.RubberChicken.Application</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Ninject" Version="3.3.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RubberChicken.BL\RubberChicken.BL.csproj" />
+    <ProjectReference Include="..\RubberChicken.Logging\RubberChicken.Logging.csproj" />
+  </ItemGroup>
+
 </Project>

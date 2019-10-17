@@ -11,7 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RubberChicken.Application\RubberChicken.Application.csproj" />
+    <ProjectReference Include="..\RubberChicken.BL\RubberChicken.BL.csproj" />
     <ProjectReference Include="..\RubberChicken.DAL\RubberChicken.DAL.csproj" />
+    <ProjectReference Include="..\RubberChicken.Logging\RubberChicken.Logging.csproj" />
   </ItemGroup>
 
 </Project>

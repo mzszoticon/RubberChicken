@@ -1,5 +1,6 @@
 ﻿using Ninject;
-using System;
+using Wdh.RubberChicken.Application.Interfaces;
+using Wdh.RubberChicken.Logging.Interfaces;
 using Wdh.RubberChicken.Shell;
 
 namespace RubberChicken.Shell
@@ -8,9 +9,20 @@ namespace RubberChicken.Shell
     {
         public static void Main(string[] args)
         {
-            var container = Module.GetContainer();
+            using (var container = DiFactory.GetContainer())
+            {
+                var logging = container.Get<ILogging>();
+                logging.Log("Created container");
 
-            container.Get<Type>();
+                var application = container.Get<IApplication>();
+                application.DoSomeWork(10);
+
+                logging.Log("Created appl4ication");
+                logging.Log("Finished!");
+
+
+                logging.Log("All done!");
+            }
         }
     }
 }

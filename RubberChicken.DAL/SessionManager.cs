@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Wdh.RubberChicken.DAL.Interfaces;
 
-[assembly: InternalsVisibleTo("RubberChicken.Shell")]
 [assembly: InternalsVisibleTo("RubberChicken.Tests")]
 namespace Wdh.RubberChicken.DAL
 {
