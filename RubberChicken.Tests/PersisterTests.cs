@@ -10,6 +10,8 @@ namespace RubberChicken.Tests
     [TestClass]
     public sealed class PersisterTests
     {
+        private const string Data = "SomeData";
+
         [TestMethod]
         public void SmokeTest()
         {
@@ -24,8 +26,8 @@ namespace RubberChicken.Tests
         public void TestGetData()
         {
             Mock<ISessionProvider> provider = new Mock<ISessionProvider>();
-            var session = Mock.Of<ISession>(s => s.GetData() == "SomeData");
-            provider.Setup(s => s.GetSession(It.IsAny<string>())).Returns(session);
+            var session = Mock.Of<ISession>(s => s.GetData() == Data);
+            provider.Setup(s => s.GetSession("SessionId")).Returns(session);
 
             // Should not throw
             var persister = new Persister(
@@ -33,13 +35,12 @@ namespace RubberChicken.Tests
                 Mock.Of<ILogging>()
                 );
 
-            Assert.IsNotNull(persister.GetData("SessionId"));
+            Assert.AreEqual(Data, persister.GetData("SessionId"));
         }
 
         [TestMethod]
         public void TestSetData()
         {
-
             // Should not throw
             var persister = new Persister(
                 Mock.Of<ISessionProvider>(m => m.GetSession(It.IsAny<string>()) == Mock.Of<ISession>()),

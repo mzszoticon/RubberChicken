@@ -49,9 +49,12 @@ namespace Wdh.RubberChicken.BL.Decorators
 
         public void Truncate(string sessionId, int number)
         {
-            logging.Log($"Starting Duplicate on {sessionId}");
-            service.Truncate(sessionId, number);
-            logging.Log($"Duplicate on {sessionId} done");
+            actionQueue.QueueCommand(sessionId, () =>
+            {
+                logging.Log($"Starting Duplicate on {sessionId}");
+                service.Truncate(sessionId, number);
+                logging.Log($"Duplicate on {sessionId} done");
+            });
         }
     }
 }

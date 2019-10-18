@@ -1,7 +1,9 @@
-﻿using Wdh.RubberChicken.Application.Interfaces;
+﻿using System.Runtime.CompilerServices;
+using Wdh.RubberChicken.Application.Interfaces;
 using Wdh.RubberChicken.BL.Interfaces;
 using Wdh.RubberChicken.Logging.Interfaces;
 
+[assembly: InternalsVisibleTo("RubberChicken.Tests")]
 namespace Wdh.RubberChicken.Application
 {
     internal sealed class SessionWorker : ISessionWorker

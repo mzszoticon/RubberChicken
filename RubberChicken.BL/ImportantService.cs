@@ -28,9 +28,10 @@ namespace Wdh.RubberChicken.BL
 
         public void Duplicate(string sessionId)
         {
-            var data = accessor.GetData(sessionManager.StartOrGetSession(sessionId));
+            string id = sessionManager.StartOrGetSession(sessionId);
+            var data = this.accessor.GetData(id);
             logging.Log("Got data: " + data);
-            persister.SetData(sessionId, data + data);
+            persister.SetData(id, data + data);
         }
 
         public string GetValue(string sessionId)
@@ -40,8 +41,8 @@ namespace Wdh.RubberChicken.BL
 
         public void SetInitial(string sessionId, string data)
         {
-            sessionManager.StartOrGetSession(sessionId);
-            persister.SetData(sessionId, data);
+            var id = sessionManager.StartOrGetSession(sessionId);
+            persister.SetData(id, data);
         }
 
         public void Truncate(string sessionId, int number)

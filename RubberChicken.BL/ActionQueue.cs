@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Wdh.RubberChicken.BL.Interfaces;
 using Wdh.RubberChicken.Logging;
@@ -7,14 +9,14 @@ using Wdh.RubberChicken.Logging.Interfaces;
 
 namespace Wdh.RubberChicken.BL
 {
-    internal class ActionQueue : IActionQueue
+    internal class ActionQueue : IActionQueue, IDisposable
     {
         public ActionQueue(ILogging logging)
         {
             this.logging = logging;
         }
 
-        Dictionary<string, QueueWorker> workers = new Dictionary<string, QueueWorker>();
+        ConcurrentDictionary<string, QueueWorker> workers = new ConcurrentDictionary<string, QueueWorker>();
         private readonly ILogging logging;
 
         public void QueueCommand(string sessionId, Action action)
@@ -26,15 +28,7 @@ namespace Wdh.RubberChicken.BL
 
         private QueueWorker GetQueueWorker(string sessionId)
         {
-            if (workers.TryGetValue(sessionId, out var worker))
-            {
-                logging.Log($"Reusing worker {worker}");
-                return worker;
-            }
-
-            worker = new QueueWorker();
-            logging.Log($"Creating new worker {worker}");
-            return worker;
+            return workers.GetOrAdd(sessionId, s => new QueueWorker());
         }
 
         public TRet QueueQuery<TRet>(string sessionId, Func<TRet> function)
@@ -42,6 +36,11 @@ namespace Wdh.RubberChicken.BL
             logging.Log($"QueueFunction called on {sessionId}");
             var worker = GetQueueWorker(sessionId);
             return worker.QueueFunction(function);
+        }
+
+        public void Dispose()
+        {
+            workers.Values.ToList().ForEach(l => l.Dispose());
         }
 
         private class QueueWorker : ProducerConsumerBase<Action>
@@ -66,6 +65,7 @@ namespace Wdh.RubberChicken.BL
                         result = function();
                         e.Set();
                     });
+                    e.WaitOne();
                     return result;
                 }
             }

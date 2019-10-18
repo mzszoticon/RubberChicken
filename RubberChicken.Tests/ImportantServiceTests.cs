@@ -25,8 +25,8 @@ namespace RubberChicken.Tests
             var mapper = mocks.Create<ISessionMapper>();
             var persistor = mocks.Create<IPersister>();
 
-            mapper.Setup(s => s.StartOrGetSession(It.IsAny<string>())).Returns<string>(s => $"{s}_dalSession");
-            persistor.Setup(s => s.SetData(It.IsAny<string>(), It.IsAny<string>()));
+            mapper.Setup(s => s.StartOrGetSession("SessionId")).Returns("dalSession");
+            persistor.Setup(s => s.SetData("dalSession", "SomeData"));
 
             var service = new ImportantService(
                 mapper.Object,
@@ -90,7 +90,10 @@ namespace RubberChicken.Tests
             var accessor = mocks.Create<IAccessor>();
 
             string dalSessionId = "aa";
-            mapper.Setup(s => s.TryGetExistingSession(It.IsAny<string>(), out dalSessionId)).Returns(true).Callback(new TryGetExistingSessionCallback((string s, out string v) => v = $"{s}_storageSession"));
+            mapper.Setup(
+                s => s.TryGetExistingSession(It.IsAny<string>(), out dalSessionId))
+                .Returns(true)
+                .Callback(new TryGetExistingSessionCallback((string s, out string v) => v = $"{s}_storageSession"));
             persistor.Setup(s => s.SetData(It.IsAny<string>(), It.IsAny<string>()));
             accessor.Setup(s => s.GetData(It.IsAny<string>())).Returns("aaaaaaaa").Verifiable();
 

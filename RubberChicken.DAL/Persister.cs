@@ -25,7 +25,7 @@ namespace Wdh.RubberChicken.DAL
         public void SetData(string sessionId, string data)
         {
             logging.Log($"Setting data to session {sessionId}: {{{data}}}");
-            this.sessionProvider.GetSession(data.ToString()).SetData(sessionId);
+            this.sessionProvider.GetSession(sessionId).SetData(data);
         }
     }
 }

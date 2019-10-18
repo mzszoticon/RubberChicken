@@ -1,27 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using Wdh.RubberChicken.DAL.Interfaces;
 
 namespace Wdh.RubberChicken.DAL
 {
     internal class SessionManager : ISessionManager, ISessionProvider
     {
-        private readonly Dictionary<string, ISession> sessionStorage = new Dictionary<string, ISession>();
+        private readonly ConcurrentDictionary<string, ISession> sessionStorage = new ConcurrentDictionary<string, ISession>();
 
         public void CloseSession(string sessionId)
         {
-            if (!sessionStorage.Remove(sessionId))
+            if (!sessionStorage.TryRemove(sessionId, out _))
                 throw new InvalidOperationException();
         }
 
         public void StartSession(string sessionId)
         {
-            sessionStorage[sessionId] = new Session();
+            sessionStorage.AddOrUpdate(sessionId, s => new Session(), (s, s1) => new Session());
         }
 
         ISession ISessionProvider.GetSession(string sessionId)
         {
-            return sessionStorage[sessionId];
+            if (!sessionStorage.TryGetValue(sessionId, out var ret))
+                throw new InvalidOperationException();
+
+            return ret;
         }
     }
 }
