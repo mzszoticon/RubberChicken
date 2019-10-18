@@ -7,6 +7,7 @@ namespace Wdh.RubberChicken.Application
     {
         public override void Load()
         {
+            Bind<ISessionWorker>().To<SessionWorker>().InSingletonScope();
             Bind<IApplication>().To<Application>().InSingletonScope();
         }
     }

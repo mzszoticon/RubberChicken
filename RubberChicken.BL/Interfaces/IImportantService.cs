@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Wdh.RubberChicken.BL.Interfaces
+﻿namespace Wdh.RubberChicken.BL.Interfaces
 {
     public interface IImportantService
     {

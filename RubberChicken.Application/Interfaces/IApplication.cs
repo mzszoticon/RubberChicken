@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Wdh.RubberChicken.Application.Interfaces
+﻿namespace Wdh.RubberChicken.Application.Interfaces
 {
     public interface IApplication
     {
