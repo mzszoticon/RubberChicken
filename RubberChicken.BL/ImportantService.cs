@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using Wdh.RubberChicken.BL.Interfaces;
 using Wdh.RubberChicken.DAL.Interfaces;
 using Wdh.RubberChicken.Logging.Interfaces;
@@ -45,7 +46,11 @@ namespace Wdh.RubberChicken.BL
 
         public void Truncate(string sessionId, int number)
         {
-            var id = sessionManager.StartOrGetSession(sessionId);
+            if (!sessionManager.TryGetExistingSession(sessionId, out var id))
+            {
+                throw new InvalidOperationException();
+            }
+
             var data = accessor.GetData(id);
             logging.Log("Got data: " + data + " for session " + sessionId);
             persister.SetData(id, data.Substring(0, number));

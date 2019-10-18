@@ -29,5 +29,7 @@ namespace Wdh.RubberChicken.BL
                 return newId;
             });
         }
+
+        public bool TryGetExistingSession(string sessionId, out string mediumSessionId) => sessions.TryGetValue(sessionId, out mediumSessionId);
     }
 }

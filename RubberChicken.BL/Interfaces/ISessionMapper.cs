@@ -8,6 +8,8 @@ namespace Wdh.RubberChicken.BL.Interfaces
     {
         string StartOrGetSession(string sessionId);
 
+        bool TryGetExistingSession(string sessionId, out string mediumSessionId);
+
         void CloseSession(string sessionId);
     }
 }

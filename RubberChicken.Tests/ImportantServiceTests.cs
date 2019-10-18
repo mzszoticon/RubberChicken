@@ -78,6 +78,8 @@ namespace RubberChicken.Tests
             mocks.Verify();
         }
 
+        private delegate void TryGetExistingSessionCallback(string sessionId, out string dalSessionId);
+
         [TestMethod]
         public void CanTruncate()
         {
@@ -87,7 +89,8 @@ namespace RubberChicken.Tests
             var persistor = mocks.Create<IPersister>();
             var accessor = mocks.Create<IAccessor>();
 
-            mapper.Setup(s => s.StartOrGetSession(It.IsAny<string>())).Returns<string>(s => $"{s}_dalSession");
+            string dalSessionId = "aa";
+            mapper.Setup(s => s.TryGetExistingSession(It.IsAny<string>(), out dalSessionId)).Returns(true).Callback(new TryGetExistingSessionCallback((string s, out string v) => v = $"{s}_storageSession"));
             persistor.Setup(s => s.SetData(It.IsAny<string>(), It.IsAny<string>()));
             accessor.Setup(s => s.GetData(It.IsAny<string>())).Returns("aaaaaaaa").Verifiable();
 
